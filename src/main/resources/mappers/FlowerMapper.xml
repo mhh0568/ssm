@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ma.ssm.mapper.FlowerMapper">
+    <!--查询t_flower的所有数据-->
+    <select id="queryFlower" resultType="map">
+        select * from t_flower f left join t_category c on f.cid=c.cid
+        <where>
+            <if test="cid!=null and cid!=''">
+                f.cid=#{cid}
+            </if>
+            <if test="fname!=null and fname!=''">
+                and fname like concat("%",#{fname},"%")
+            </if>
+            <if test="low!=null and low!=''">
+                and price>=#{low}
+            </if>
+            <if test="high!=null and high!=''">
+                and #{high}>=price
+            </if>
+        </where>
+    </select>
+
+</mapper>
